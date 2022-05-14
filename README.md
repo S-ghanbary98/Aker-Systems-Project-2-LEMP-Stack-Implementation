@@ -82,3 +82,81 @@ sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/met
 ![alt text](unlink_restart.png)
 
 ![alt text](new_web.png)
+
+
+### Integrate php with nginx
+
+- Next we are going to test whether nginx can give .php files to the php processor.
+- I will run `sudo nano /var/www/projectLEMP/info.php` to create a php file which i will then place in
+```
+<?php
+phpinfo();
+```
+which in turn should give back server information to be displayed in the browser when i enter 'http://ec2_public_ip//info.php'. The result for this can be seen below.
+
+![alt](php_info_web.png)
+
+- This is sensitive information about the server so i deleted the info.php file using `sudo rm /var/www/projectLEMP/info.php`.
+
+
+
+### Retrieving data from MySQL with PHP
+
+- Next I move on to creating test data, namely a to-do list in my database, to then configure it so that the info from the DB is displayed on my nginx website.
+- Firstly I enetered the DB through `sudo mysql`, I then created a database using `CREATE DATABASE 'example_database';`
+- Secondly I created an example user to which I'd give permissions to the just created database. `CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';`, `GRANT ALL ON example_database.* TO 'example_user'@'%';`.
+
+
+![alt text](db_cretion.png)
+
+
+- Small test to see if user creation was successuful via `mysql -u example_user -p`, along with `SHOW DATABASES;` to see the database.
+
+
+![alt text](/mysql_user_test)
+
+
+- Next we move on to creating a test table and inserting a few rows.
+
+```
+# creating the table
+
+CREATE TABLE example_database.todo_list (
+item_id INT AUTO_INCREMENT,
+content VARCHAR(255),
+PRIMARY KEY(item_id)
+);
+
+```
+
+` INSERT INTO example_database.todo_list (content) VALUES ("MY VALUES");`
+
+![alt text](/mysql_user_test)
+
+
+- Finally we have to move on to configuring a script so that our php can connect to the database. This was done with the following script that was placed in '/var/www/projectLEMP' named todo_list.php.
+
+```
+<?php
+$user = "example_user";
+$password = "password";
+$database = "example_database";
+$table = "todo_list";
+
+try {
+  $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+  echo "<h2>TODO</h2><ol>";
+  foreach($db->query("SELECT content FROM $table") as $row) {
+    echo "<li>" . $row['content'] . "</li>";
+  }
+  echo "</ol>";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+
+```
+
+The final result it the image below.
+
+![alt](/final_result.png)
