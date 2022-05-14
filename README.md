@@ -16,14 +16,14 @@ In this project, I will employ a LAMP  (Linux, Nginx, MySQL, PHP) stack project 
 
 ![alt text](/nginx_active.png)
 
-![alt text](/nginx_web.png)
+![alt text](/nginx%20_web.png)
 
 
 ### MySQL Install
 
 - Next we move on to our DMB install, and we do that via `sudo apt install mysql-server`, we then access this through `sudo mysql` to ensure this is successfull.
 
-![alt text](/mysql_install_acces.png)
+![alt text](/mysql_install_access.png)
 
 
 ### Installing PHP
@@ -107,7 +107,7 @@ which in turn should give back server information to be displayed in the browser
 - Secondly I created an example user to which I'd give permissions to the just created database. `CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';`, `GRANT ALL ON example_database.* TO 'example_user'@'%';`.
 
 
-![alt text](/db_creation)
+![alt text](/db_creation.png)
 
 
 - Small test to see if user creation was successuful via `mysql -u example_user -p`, along with `SHOW DATABASES;` to see the database.
@@ -131,7 +131,7 @@ PRIMARY KEY(item_id)
 
 ` INSERT INTO example_database.todo_list (content) VALUES ("MY VALUES");`
 
-![alt text](/mysql_user_test)
+![alt text](/mysql_user_test.png)
 
 
 - Finally we have to move on to configuring a script so that our php can connect to the database. This was done with the following script that was placed in '/var/www/projectLEMP' named todo_list.php.
