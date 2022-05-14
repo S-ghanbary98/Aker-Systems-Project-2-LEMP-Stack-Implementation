@@ -23,7 +23,7 @@ In this project, I will employ a LAMP  (Linux, Nginx, MySQL, PHP) stack project 
 
 - Next we move on to our DMB install, and we do that via `sudo apt install mysql-server`, we then access this through `sudo mysql` to ensure this is successfull.
 
-![alt text](mysql_install_acces.png)
+![alt text](/mysql_install_acces.png)
 
 
 ### Installing PHP
@@ -113,7 +113,7 @@ which in turn should give back server information to be displayed in the browser
 - Small test to see if user creation was successuful via `mysql -u example_user -p`, along with `SHOW DATABASES;` to see the database.
 
 
-![alt text](/mysql_user_test)
+![alt text](/mysql_user_test.png)
 
 
 - Next we move on to creating a test table and inserting a few rows.
